@@ -1,696 +1,405 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gyandip Kids Academy</title>
-
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#eef7ff,#fff8e8);
-  color:#222;
-}
-
-header{
-  background:linear-gradient(90deg,#4f46e5,#7c3aed);
-  color:white;
-  padding:18px;
-  text-align:center;
-  box-shadow:0 3px 12px #999;
-}
-
-header h1{
-  font-size:27px;
-}
-
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-}
-
-.card{
-  background:white;
-  border-radius:20px;
-  padding:25px;
-  margin-top:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.12);
-}
-
-input,select{
-  width:100%;
-  padding:14px;
-  margin:10px 0;
-  border:1px solid #ccc;
-  border-radius:10px;
-  font-size:16px;
-}
-
-button{
-  border:0;
-  padding:13px 20px;
-  border-radius:12px;
-  background:#4f46e5;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-  margin:6px;
-}
-
-button:hover{
-  background:#3730a3;
-}
-
-.hidden{
-  display:none;
-}
-
-.music{
-  position:fixed;
-  right:15px;
-  bottom:15px;
-  z-index:10;
-  background:#111827;
-  border-radius:50px;
-  padding:10px 15px;
-}
-
-.subjects{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:12px;
-  margin-top:15px;
-}
-
-.subject{
-  padding:18px;
-  border-radius:15px;
-  background:#f3f4f6;
-  text-align:center;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.subject:hover{
-  background:#ddd6fe;
-}
-
-.timer{
-  background:#fee2e2;
-  color:#b91c1c;
-  padding:12px;
-  border-radius:10px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-  margin-bottom:15px;
-}
-
-.option{
-  display:block;
-  background:#f9fafb;
-  padding:15px;
-  margin:10px 0;
-  border-radius:12px;
-  border:2px solid transparent;
-  cursor:pointer;
-}
-
-.option:hover{
-  border-color:#6366f1;
-}
-
-.pageButtons{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  margin-top:20px;
-}
-
-.pageButtons button{
-  min-width:42px;
-  padding:9px;
-}
-
-.result{
-  text-align:center;
-  font-size:22px;
-  padding:25px;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <h1>🎓 Gyandip Kids Academy</h1>
-  <p>Learn • Practice • Test • Result</p>
-</header>
-
-<!-- BACKGROUND MUSIC -->
-<audio id="bgMusic" loop>
-  <source src="bg-music.mp3" type="audio/mpeg">
-</audio>
-
-<button class="music" onclick="toggleMusic()" id="musicBtn">
-  🔊 Music ON
-</button>
-
-<div class="container">
-
-<!-- LOGIN -->
-<section id="loginPage" class="card">
-  <h2>👨‍🎓 Student Registration / Login</h2>
-
-  <input id="studentName" type="text"
-         placeholder="Student Name">
-
-  <input id="studentMobile" type="tel"
-         placeholder="Mobile Number">
-
-  <button onclick="loginStudent()">
-    Continue →
-  </button>
-</section>
-
-
-<!-- SUBJECT -->
-<section id="subjectPage" class="card hidden">
-
-  <h2>📚 Subject चुनें</h2>
-
-  <div class="subjects">
-
-    <div class="subject" onclick="startTest('Hindi')">
-      🇮🇳 Hindi
-    </div>
-
-    <div class="subject" onclick="startTest('English')">
-      🔤 English
-    </div>
-
-    <div class="subject" onclick="startTest('Math')">
-      ➕ Mathematics
-    </div>
-
-    <div class="subject" onclick="startTest('Science')">
-      🔬 Science
-    </div>
-
-    <div class="subject" onclick="startTest('GK')">
-      🌎 General Knowledge
-    </div>
-
-    <div class="subject" onclick="startTest('Computer')">
-      💻 Computer
-    </div>
-
-  </div>
-
-  <div class="card">
-    <h3>💰 Test Fee</h3>
-    <p>Test शुरू करने के लिए Fee: <b>₹1</b></p>
-
-    <button onclick="startPayment()">
-      💳 Pay ₹1 & Start Test
-    </button>
-  </div>
-
-</section>
-
-
-<!-- TEST -->
-<section id="testPage" class="card hidden">
-
-  <div class="timer">
-    ⏱️ Time:
-    <span id="timer">30</span> सेकंड
-  </div>
-
-  <h3 id="pageTitle"></h3>
-
-  <div id="questionBox"></div>
-
-  <div class="pageButtons">
-    <button onclick="previousQuestion()">⬅️ Previous</button>
-    <button onclick="nextQuestion()">Next ➡️</button>
-  </div>
-
-  <button onclick="submitTest()">
-    ✅ Submit Test
-  </button>
-
-</section>
-
-
-<!-- RESULT -->
-<section id="resultPage" class="card hidden">
-
-  <div class="result">
-
-    <h2>🏆 Test Result</h2>
-
-    <p id="resultName"></p>
-    <p id="resultSubject"></p>
-
-    <h1 id="score"></h1>
-
-    <p id="percentage"></p>
-
-    <button onclick="location.reload()">
-      🏠 Back to Home
-    </button>
-
-  </div>
-
-</section>
-
-</div>
-
-
-<script>
-
-/* ==========================================
-   STUDENT DATA
-========================================== */
+/*
+ GyanDip Kids Academy
+ 40,000 Dynamic Questions
+ 1 Question = 1 Page
+ 30 Seconds Per Question
+*/
+
+const TOTAL_QUESTIONS = 40000;
 
 let student = {
-  name:"",
-  mobile:"",
-  subject:""
+  name: "",
+  mobile: ""
 };
 
+let selectedSubject = "";
+
 let currentQuestion = 0;
-let currentPage = 1;
-
 let score = 0;
-
-let timerValue = 30;
+let timer = 30;
 let timerInterval;
 
-
-/* ==========================================
-   40 PAGES
-   40 × 100 = 4000 QUESTIONS
-========================================== */
-
-const TOTAL_PAGES = 40;
-const QUESTIONS_PER_PAGE = 100;
-const TOTAL_QUESTIONS = 4000;
+let selectedAnswer = null;
 
 
-/* ==========================================
-   QUESTION BANK
-==========================================
+/* --------------------------------
+   40,000 QUESTION ENGINE
+-------------------------------- */
 
-   यहाँ बाद में आपके वास्तविक 4000
-   Questions डाले जाएंगे।
+const subjects = [
+  "Hindi",
+  "English",
+  "Maths",
+  "Science",
+  "GK"
+];
 
-   Format:
+function createQuestion(number, subject) {
 
-   {
-     question:"भारत की राजधानी क्या है?",
-     options:["दिल्ली","मुंबई","जयपुर","पटना"],
-     answer:0
-   }
+  let q;
+  let correct;
+  let options;
 
-========================================== */
+  if (subject === "Maths") {
 
-let questions = [];
+    let a = (number * 7) % 100 + 1;
+    let b = (number * 3) % 50 + 1;
 
+    correct = a + b;
 
-/* Demo Questions */
+    options = [
+      correct,
+      correct + 1,
+      correct - 1,
+      correct + 2
+    ];
 
-for(let i=1;i<=4000;i++){
+    q = `Question ${number}: ${a} + ${b} = ?`;
 
-  questions.push({
+  } else if (subject === "English") {
 
-    question:
-      "Practice Question " + i +
-      " — सही उत्तर चुनिए।",
+    let words = [
+      ["Cat", "बिल्ली"],
+      ["Dog", "कुत्ता"],
+      ["Book", "किताब"],
+      ["Sun", "सूरज"],
+      ["Water", "पानी"]
+    ];
 
-    options:[
-      "Option A",
-      "Option B",
-      "Option C",
-      "Option D"
-    ],
+    let item = words[number % words.length];
 
-    answer:0
+    q = `Question ${number}: "${item[0]}" का Hindi meaning क्या है?`;
 
-  });
+    correct = item[1];
 
+    options = [
+      item[1],
+      "पेड़",
+      "घर",
+      "आसमान"
+    ];
+
+  } else if (subject === "Hindi") {
+
+    let data = [
+      ["कमल", "फूल"],
+      ["गाय", "पशु"],
+      ["आम", "फल"],
+      ["दिल", "अंग"]
+    ];
+
+    let item = data[number % data.length];
+
+    q = `Question ${number}: "${item[0]}" क्या है?`;
+
+    correct = item[1];
+
+    options = [
+      item[1],
+      "पक्षी",
+      "रंग",
+      "खेल"
+    ];
+
+  } else if (subject === "Science") {
+
+    q = `Question ${number}: पौधों को बढ़ने के लिए इनमें से किसकी आवश्यकता होती है?`;
+
+    correct = "सूर्य का प्रकाश";
+
+    options = [
+      "सूर्य का प्रकाश",
+      "पत्थर",
+      "प्लास्टिक",
+      "लोहे"
+    ];
+
+  } else {
+
+    q = `Question ${number}: भारत की राजधानी क्या है?`;
+
+    correct = "नई दिल्ली";
+
+    options = [
+      "नई दिल्ली",
+      "मुंबई",
+      "जयपुर",
+      "लखनऊ"
+    ];
+  }
+
+  return {
+    question: q,
+    options: shuffle(options),
+    answer: correct
+  };
 }
 
 
-/* ==========================================
+/* --------------------------------
+   SHUFFLE
+-------------------------------- */
+
+function shuffle(array) {
+
+  let arr = [...array];
+
+  for (let i = arr.length - 1; i > 0; i--) {
+
+    let j = Math.floor(Math.random() * (i + 1));
+
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+
+  return arr;
+}
+
+
+/* --------------------------------
    LOGIN
-========================================== */
+-------------------------------- */
 
-function loginStudent(){
+function login() {
 
-  const name =
-    document.getElementById("studentName").value.trim();
+  let name = document.getElementById("studentName").value.trim();
+  let mobile = document.getElementById("studentMobile").value.trim();
 
-  const mobile =
-    document.getElementById("studentMobile").value.trim();
+  if (!name || !mobile) {
 
-  if(!name || !mobile){
-
-    alert("कृपया Name और Mobile Number भरें।");
+    alert("कृपया नाम और मोबाइल नंबर भरें।");
     return;
-
   }
 
   student.name = name;
   student.mobile = mobile;
 
-  document.getElementById("loginPage")
-    .classList.add("hidden");
-
-  document.getElementById("subjectPage")
-    .classList.remove("hidden");
-
+  showPage("subjectPage");
 }
 
 
-/* ==========================================
-   PAYMENT
-========================================== */
+/* --------------------------------
+   SUBJECT
+-------------------------------- */
 
-function startPayment(){
+function startTest(subject) {
 
-  /*
-    यहाँ बाद में UPI / Payment Gateway जोड़ा जाएगा।
+  selectedSubject = subject;
 
-    अभी Demo के लिए सीधे Test शुरू होगा।
-  */
-
-  alert("₹1 Test Payment Demo");
-
-  startTest(student.subject || "General");
-
+  showPage("feePage");
 }
 
 
-/* ==========================================
+/* --------------------------------
    START TEST
-========================================== */
+-------------------------------- */
 
-function startTest(subject){
-
-  student.subject = subject;
+function startQuestions() {
 
   currentQuestion = 0;
-  currentPage = 1;
   score = 0;
 
-  document.getElementById("subjectPage")
-    .classList.add("hidden");
+  showPage("questionPage");
 
-  document.getElementById("testPage")
-    .classList.remove("hidden");
-
-  showQuestion();
-
+  loadQuestion();
 }
 
 
-/* ==========================================
-   SHOW QUESTION
-========================================== */
+/* --------------------------------
+   QUESTION
+-------------------------------- */
 
-function showQuestion(){
+function loadQuestion() {
 
   clearInterval(timerInterval);
 
-  timerValue = 30;
+  selectedAnswer = null;
 
-  document.getElementById("timer")
-    .innerText = timerValue;
+  let data = createQuestion(
+    currentQuestion + 1,
+    selectedSubject
+  );
 
-  timerInterval = setInterval(function(){
+  document.getElementById("questionNumber").innerText =
+    `Question ${currentQuestion + 1} / ${TOTAL_QUESTIONS}`;
 
-    timerValue--;
+  document.getElementById("questionText").innerText =
+    data.question;
 
-    document.getElementById("timer")
-      .innerText = timerValue;
+  let optionsBox = document.getElementById("options");
 
-    if(timerValue <= 0){
+  optionsBox.innerHTML = "";
+
+  data.options.forEach(option => {
+
+    let button = document.createElement("button");
+
+    button.className = "option";
+
+    button.innerText = option;
+
+    button.onclick = () => {
+
+      selectedAnswer = option;
+
+      document
+        .querySelectorAll(".option")
+        .forEach(x => x.classList.remove("selected"));
+
+      button.classList.add("selected");
+    };
+
+    optionsBox.appendChild(button);
+  });
+
+  window.currentCorrectAnswer = data.answer;
+
+  updateProgress();
+
+  startTimer();
+}
+
+
+/* --------------------------------
+   TIMER
+-------------------------------- */
+
+function startTimer() {
+
+  timer = 30;
+
+  document.getElementById("timer").innerText = timer;
+
+  timerInterval = setInterval(() => {
+
+    timer--;
+
+    document.getElementById("timer").innerText = timer;
+
+    if (timer <= 0) {
 
       clearInterval(timerInterval);
 
       nextQuestion();
-
     }
 
-  },1000);
-
-
-  const q = questions[currentQuestion];
-
-  document.getElementById("pageTitle").innerText =
-    "📄 Page " + currentPage +
-    " / " + TOTAL_PAGES +
-    " | Question " +
-    (currentQuestion + 1) +
-    " / " + TOTAL_QUESTIONS;
-
-
-  let html = `
-
-    <div class="card">
-
-      <h2>
-        Q${currentQuestion + 1}.
-        ${q.question}
-      </h2>
-
-      <br>
-
-  `;
-
-
-  q.options.forEach((option,index)=>{
-
-    html += `
-
-      <label class="option">
-
-        <input
-          type="radio"
-          name="answer"
-          value="${index}"
-          onchange="saveAnswer(${index})"
-        >
-
-        ${option}
-
-      </label>
-
-    `;
-
-  });
-
-
-  html += `</div>`;
-
-
-  document.getElementById("questionBox")
-    .innerHTML = html;
-
+  }, 1000);
 }
 
 
-/* ==========================================
-   SAVE ANSWER
-========================================== */
+/* --------------------------------
+   NEXT
+-------------------------------- */
 
-let answers = {};
+function nextQuestion() {
 
-function saveAnswer(index){
+  clearInterval(timerInterval);
 
-  answers[currentQuestion] = index;
-
-}
-
-
-/* ==========================================
-   NEXT QUESTION
-========================================== */
-
-function nextQuestion(){
-
-  if(answers[currentQuestion] ===
-     questions[currentQuestion].answer){
+  if (selectedAnswer === window.currentCorrectAnswer) {
 
     score++;
-
   }
 
   currentQuestion++;
 
-  /*
-    100 Questions complete होने पर
-    अगला page
-  */
+  if (currentQuestion >= TOTAL_QUESTIONS) {
 
-  if(currentQuestion >=
-     currentPage * QUESTIONS_PER_PAGE){
+    showResult();
 
-    currentPage++;
+  } else {
 
+    loadQuestion();
   }
-
-
-  /*
-    4000 Questions complete
-  */
-
-  if(currentQuestion >= TOTAL_QUESTIONS){
-
-    submitTest();
-    return;
-
-  }
-
-  showQuestion();
-
 }
 
 
-/* ==========================================
-   PREVIOUS QUESTION
-========================================== */
+/* --------------------------------
+   PROGRESS
+-------------------------------- */
 
-function previousQuestion(){
+function updateProgress() {
 
-  if(currentQuestion <= 0){
-    return;
-  }
+  let percentage =
+    (currentQuestion / TOTAL_QUESTIONS) * 100;
 
-  currentQuestion--;
-
-  if(currentQuestion <
-     (currentPage - 1) *
-     QUESTIONS_PER_PAGE){
-
-    currentPage--;
-
-  }
-
-  showQuestion();
-
+  document.getElementById("progressBar").style.width =
+    percentage + "%";
 }
 
 
-/* ==========================================
-   SUBMIT TEST
-========================================== */
+/* --------------------------------
+   RESULT
+-------------------------------- */
 
-function submitTest(){
+function showResult() {
 
   clearInterval(timerInterval);
 
-  /*
-    Final unanswered/current answer
-  */
+  showPage("resultPage");
 
-  if(
-    answers[currentQuestion] !== undefined &&
-    answers[currentQuestion] ===
-    questions[currentQuestion].answer
-  ){
+  document.getElementById("score").innerText =
+    score;
 
-    score++;
-
-  }
-
-
-  document.getElementById("testPage")
-    .classList.add("hidden");
-
-  document.getElementById("resultPage")
-    .classList.remove("hidden");
-
-
-  const percent =
-    ((score / TOTAL_QUESTIONS) * 100)
-    .toFixed(2);
-
-
-  document.getElementById("resultName")
-    .innerText =
-    "Student: " + student.name;
-
-
-  document.getElementById("resultSubject")
-    .innerText =
-    "Subject: " + student.subject;
-
-
-  document.getElementById("score")
-    .innerText =
-    "🏆 " + score +
-    " / " + TOTAL_QUESTIONS;
-
-
-  document.getElementById("percentage")
-    .innerText =
-    "Percentage: " + percent + "%";
-
+  document.getElementById("resultText").innerText =
+    `${student.name}, आपने ${TOTAL_QUESTIONS} में से ${score} questions सही किए।`;
 }
 
 
-/* ==========================================
-   BACKGROUND MUSIC
-========================================== */
+/* --------------------------------
+   PAGE SWITCH
+-------------------------------- */
 
-let musicPlaying = false;
+function showPage(id) {
 
-function toggleMusic(){
+  document
+    .querySelectorAll(".page")
+    .forEach(page => page.classList.remove("active"));
 
-  const music =
-    document.getElementById("bgMusic");
-
-  const btn =
-    document.getElementById("musicBtn");
-
-
-  if(musicPlaying){
-
-    music.pause();
-
-    musicPlaying = false;
-
-    btn.innerText = "🔇 Music OFF";
-
-  }else{
-
-    music.play().catch(()=>{
-
-      alert(
-        "Music चलाने के लिए फोन की अनुमति/एक बार स्क्रीन पर tap करना जरूरी हो सकता है।"
-      );
-
-    });
-
-    musicPlaying = true;
-
-    btn.innerText = "🔊 Music ON";
-
-  }
-
+  document
+    .getElementById(id)
+    .classList.add("active");
 }
 
-</script>
 
-</body>
-</html>
+/* --------------------------------
+   LIGHT BACKGROUND TONE
+-------------------------------- */
+
+let audioContext;
+
+document.addEventListener("click", () => {
+
+  if (!audioContext) {
+
+    audioContext =
+      new (window.AudioContext ||
+           window.webkitAudioContext)();
+
+    playSoftTone();
+  }
+
+}, { once: true });
+
+
+function playSoftTone() {
+
+  if (!audioContext) return;
+
+  let oscillator =
+    audioContext.createOscillator();
+
+  let gain =
+    audioContext.createGain();
+
+  oscillator.frequency.value = 520;
+
+  gain.gain.value = 0.025;
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+
+  oscillator.start();
+
+  oscillator.stop(
+    audioContext.currentTime + 0.15
+  );
+}
