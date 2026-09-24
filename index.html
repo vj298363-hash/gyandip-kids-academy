@@ -7,180 +7,102 @@
 
 <style>
 *{box-sizing:border-box}
-
 body{
- margin:0;
- font-family:Arial,sans-serif;
+ margin:0;font-family:Arial,sans-serif;
  background:linear-gradient(135deg,#eaf7ff,#fff4cf);
- color:#17345f;
+ color:#17345f
 }
-
 header{
- background:white;
- text-align:center;
- padding:15px;
- box-shadow:0 3px 12px #0002;
+ background:white;text-align:center;padding:15px;
+ box-shadow:0 3px 12px #0002
 }
-
-.logo{
- width:100px;
- height:100px;
- object-fit:contain;
-}
-
-.title{
- font-size:23px;
- font-weight:bold;
-}
-
+.logo{width:90px;height:90px;object-fit:contain}
+.title{font-size:23px;font-weight:bold}
 .card{
- max-width:700px;
- margin:15px auto;
- padding:18px;
- background:white;
- border-radius:20px;
- box-shadow:0 5px 20px #0002;
+ max-width:700px;margin:15px auto;padding:18px;
+ background:white;border-radius:20px;
+ box-shadow:0 5px 20px #0002
 }
-
 input,select{
- width:100%;
- padding:13px;
- margin:6px 0;
- border:1px solid #ccd9e8;
- border-radius:10px;
- font-size:16px;
+ width:100%;padding:13px;margin:6px 0;
+ border:1px solid #ccd9e8;border-radius:10px;
+ font-size:16px
 }
-
 button{
- border:0;
- border-radius:12px;
- padding:13px 17px;
- margin:5px;
- background:#1769e0;
- color:white;
- font-size:16px;
- font-weight:bold;
+ border:0;border-radius:12px;padding:13px 17px;
+ margin:5px;background:#1769e0;color:white;
+ font-size:16px;font-weight:bold
 }
-
 .yellow{background:#f2b900;color:#222}
 .green{background:#159447}
 .red{background:#d83b3b}
-
 .hidden{display:none}
-
 .grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:10px;
+ display:grid;grid-template-columns:1fr 1fr;gap:10px
 }
-
 .timer{
- text-align:center;
- font-size:26px;
- color:#d22;
- font-weight:bold;
+ text-align:center;font-size:28px;
+ color:#d22;font-weight:bold
 }
-
 .progress{
- height:8px;
- background:#ddd;
- border-radius:10px;
+ height:8px;background:#ddd;border-radius:10px
 }
-
 .bar{
- height:100%;
- width:0%;
- background:#1769e0;
- border-radius:10px;
+ height:100%;width:0;background:#1769e0;
+ border-radius:10px
 }
-
 .question{
- border:2px solid #e3edf7;
- border-radius:15px;
- padding:13px;
- margin:12px 0;
+ border:2px solid #e3edf7;border-radius:15px;
+ padding:13px;margin:12px 0
 }
-
 .option{
- display:block;
- width:100%;
- text-align:left;
- background:#f3f7fb;
- color:#17345f;
+ display:block;width:100%;text-align:left;
+ background:#f3f7fb;color:#17345f
 }
-
 .option.selected{
- background:#c7e4ff;
- border:2px solid #1769e0;
+ background:#c7e4ff;border:2px solid #1769e0
 }
-
 .center{text-align:center}
-
-.note{
- font-size:13px;
- color:#66758a;
-}
-
-.price{
- font-size:40px;
- font-weight:bold;
-}
+.note{font-size:13px;color:#66758a}
+.price{font-size:40px;font-weight:bold}
 </style>
 </head>
 
 <body>
 
 <header>
-
-<img
-class="logo"
-src="little_star_logo.png"
-onerror="this.style.display='none'"
->
+<img class="logo"
+src="assets/little_star_logo.png"
+onerror="this.style.display='none'">
 
 <div class="title">
 🌟 Little Star Examination Academy 🌟
 </div>
 
-<div>
-बच्चों की परीक्षा की दुनिया
-</div>
-
+<div>बच्चों की परीक्षा की दुनिया</div>
 </header>
 
 
-<!-- =====================
- REGISTRATION
-===================== -->
+<!-- REGISTRATION -->
 
 <div class="card" id="registration">
 
 <h2>👨‍🎓 Student Registration</h2>
 
-<input
-id="studentName"
-placeholder="Student Name"
->
+<input id="name" placeholder="Student Name">
 
-<input
-id="guardianName"
-placeholder="Parent / Guardian Name"
->
+<input id="guardian"
+placeholder="Parent / Guardian Name">
 
-<input
-id="mobile"
+<input id="mobile"
 type="tel"
-placeholder="Mobile Number"
->
+placeholder="Mobile Number">
 
 <select id="className">
-
 <option value="">Class चुनें</option>
-
 <option>Nursery</option>
 <option>LKG</option>
 <option>UKG</option>
-
 <option>Class 1</option>
 <option>Class 2</option>
 <option>Class 3</option>
@@ -193,33 +115,25 @@ placeholder="Mobile Number"
 <option>Class 10</option>
 <option>Class 11</option>
 <option>Class 12</option>
-
 </select>
 
 <label>
-<input
-type="checkbox"
-id="consent"
->
+<input type="checkbox" id="consent">
 Parent/Guardian consent
 </label>
 
 <br>
 
-<button onclick="register()">
-Continue
-</button>
+<button onclick="register()">Continue</button>
 
 <p class="note">
-बच्चों के लिए payment से पहले parent/guardian consent और privacy notice रखें।
+बच्चों के लिए payment से पहले parent/guardian consent जरूरी है।
 </p>
 
 </div>
 
 
-<!-- =====================
- SUBJECT
-===================== -->
+<!-- SUBJECT -->
 
 <div class="card hidden" id="subjects">
 
@@ -227,159 +141,105 @@ Continue
 
 <div class="grid">
 
-<button onclick="selectSubject('Hindi')">
-हिंदी
-</button>
-
-<button onclick="selectSubject('English')">
-English
-</button>
-
-<button onclick="selectSubject('Maths')">
-Maths
-</button>
-
-<button onclick="selectSubject('GK')">
-General Knowledge
-</button>
-
-<button onclick="selectSubject('Science')">
-Science
-</button>
+<button onclick="subject('Hindi')">हिंदी</button>
+<button onclick="subject('English')">English</button>
+<button onclick="subject('Maths')">Maths</button>
+<button onclick="subject('GK')">General Knowledge</button>
+<button onclick="subject('Science')">Science</button>
 
 </div>
 
 </div>
 
 
-<!-- =====================
- ₹1 FEE
-===================== -->
+<!-- FEE -->
 
 <div class="card hidden center" id="fee">
 
 <h2>💰 Test Registration Fee</h2>
 
-<div class="price">
-₹1
-</div>
+<div class="price">₹1</div>
 
-<p>
-Subject:
-<b id="selectedSubject"></b>
+<p>Subject:
+<b id="subjectName"></b>
 </p>
 
-<button
-class="green"
-onclick="paymentDemo()"
->
+<button class="green" onclick="payment()">
 ₹1 Payment Continue
 </button>
 
 <p class="note">
-यह अभी Demo Payment है। Real payment gateway बाद में secure तरीके से जोड़ा जाएगा।
+यह Demo Payment है। वास्तविक payment gateway अभी जुड़ा नहीं है।
 </p>
 
 </div>
 
 
-<!-- =====================
- STUDENT PANEL
-===================== -->
+<!-- STUDENT PANEL -->
 
-<div class="card hidden" id="studentPanel">
+<div class="card hidden" id="panel">
 
 <h2>🎓 Student Panel</h2>
 
 <p>
-Welcome,
-<b id="welcomeName"></b>
+Welcome <b id="welcome"></b>
 </p>
 
-<p>
-📚 4000 Questions
-</p>
+<p>📄 20 Sections</p>
+<p>❓ 4000 Questions</p>
+<p>📝 एक screen पर 4 Questions</p>
+<p>⏱️ 30 Seconds</p>
 
-<p>
-📄 20 Sections
-</p>
-
-<p>
-📝 एक बार में 4 Questions
-</p>
-
-<p>
-⏱️ हर screen के लिए 30 Seconds
-</p>
-
-<button onclick="startExam()">
+<button onclick="startTest()">
 ▶️ Test शुरू करें
 </button>
 
-<button
-class="yellow"
-onclick="toggleMusic()"
->
+<button class="yellow" onclick="ringtone()">
 🔔 Ringtone
 </button>
 
 </div>
 
 
-<!-- =====================
- EXAM
-===================== -->
+<!-- EXAM -->
 
 <div class="card hidden" id="exam">
 
 <div class="timer">
-⏱️
-<span id="timer">
-30
-</span>
+⏱️ <span id="time">30</span>
 </div>
 
 <div class="progress">
-<div
-class="bar"
-id="progressBar"
-></div>
+<div class="bar" id="bar"></div>
 </div>
 
 <p>
 Questions:
-<span id="questionRange"></span>
+<span id="range"></span>
 </p>
 
-<div id="questionBox"></div>
+<div id="questions"></div>
 
-<button onclick="nextFour()">
+<button onclick="nextPage()">
 अगले 4 →
 </button>
 
-<button
-class="red"
-onclick="submitExam()"
->
+<button class="red" onclick="finish()">
 ✅ Submit Test
 </button>
 
 </div>
 
 
-<!-- =====================
- RESULT
-===================== -->
+<!-- RESULT -->
 
 <div class="card hidden center" id="result">
 
-<h2>
-🏆 Result / Marks
-</h2>
+<h2>🏆 Result / Marks</h2>
 
 <h1 id="marks"></h1>
 
-<p id="resultInfo"></p>
+<p id="info"></p>
 
 <button onclick="location.reload()">
 नया Test
@@ -388,511 +248,267 @@ onclick="submitExam()"
 </div>
 
 
-<audio
-id="ringtone"
-src="ringtone.wav"
-loop
->
-</audio>
+<audio id="sound"
+src="assets/ringtone.wav"
+loop></audio>
 
 
 <script>
 
-/* =====================
- STUDENT DATA
-===================== */
-
 let student={};
+let selected="";
+let current=0;
+let answers={};
+let time=30;
+let timer;
 
-let selectedSubject="";
 
-
-/* =====================
- QUESTIONS
-===================== */
+/* 4000 QUESTIONS */
 
 let questions=[];
 
-
-/*
- 4000 questions
- 20 sections
- 4 questions per screen
-*/
-
-for(
- let i=1;
- i<=4000;
- i++
-){
+for(let i=1;i<=4000;i++){
 
  let a=(i*7)%50+1;
-
  let b=(i*3)%40+1;
 
  questions.push({
-
-   id:i,
-
-   question:
-   "Question "+i+
-   ": "+a+" + "+b+" = ?",
-
-   options:[
-     String(a+b),
-     String(a+b+1),
-     String(a+b-1),
-     String(a+b+2)
-   ],
-
-   answer:String(a+b)
-
+  id:i,
+  q:"Question "+i+": "+a+" + "+b+" = ?",
+  options:[
+   ""+(a+b),
+   ""+(a+b+1),
+   ""+(a+b-1),
+   ""+(a+b+2)
+  ],
+  answer:""+(a+b)
  });
 
 }
 
 
-/* =====================
- EXAM VARIABLES
-===================== */
-
-let currentQuestion=0;
-
-let answers={};
-
-let time=30;
-
-let timerID;
-
-
-/* =====================
- REGISTER
-===================== */
+/* REGISTER */
 
 function register(){
 
- let name=
- document
- .getElementById("studentName")
- .value
- .trim();
+ let name=document.getElementById("name").value.trim();
+ let guardian=document.getElementById("guardian").value.trim();
+ let mobile=document.getElementById("mobile").value.trim();
+ let cls=document.getElementById("className").value;
+ let consent=document.getElementById("consent").checked;
 
- let guardian=
- document
- .getElementById("guardianName")
- .value
- .trim();
-
- let mobile=
- document
- .getElementById("mobile")
- .value
- .trim();
-
- let className=
- document
- .getElementById("className")
- .value;
-
- let consent=
- document
- .getElementById("consent")
- .checked;
-
-
- if(
-   !name ||
-   !guardian ||
-   !mobile ||
-   !className
- ){
-
-   alert(
-   "कृपया सभी जानकारी भरें"
-   );
-
-   return;
-
+ if(!name||!guardian||!mobile||!cls){
+  alert("सभी जानकारी भरें");
+  return;
  }
-
 
  if(!consent){
-
-   alert(
-   "Parent/Guardian consent जरूरी है"
-   );
-
-   return;
-
+  alert("Parent/Guardian consent जरूरी है");
+  return;
  }
 
-
  student={
-
-   name:name,
-
-   guardian:guardian,
-
-   mobile:mobile,
-
-   className:className
-
+  name:name,
+  guardian:guardian,
+  mobile:mobile,
+  cls:cls
  };
 
-
- document
- .getElementById("registration")
- .classList
- .add("hidden");
-
-
- document
- .getElementById("subjects")
- .classList
- .remove("hidden");
-
+ hide("registration");
+ show("subjects");
 }
 
 
-/* =====================
- SUBJECT
-===================== */
+/* SUBJECT */
 
-function selectSubject(subject){
+function subject(s){
 
- selectedSubject=subject;
+ selected=s;
 
- document
- .getElementById("selectedSubject")
- .innerText=subject;
+ document.getElementById("subjectName")
+ .innerText=s;
 
-
- document
- .getElementById("subjects")
- .classList
- .add("hidden");
-
-
- document
- .getElementById("fee")
- .classList
- .remove("hidden");
-
+ hide("subjects");
+ show("fee");
 }
 
 
-/* =====================
- DEMO PAYMENT
-===================== */
+/* DEMO PAYMENT */
 
-function paymentDemo(){
+function payment(){
 
- alert(
- "Demo Payment Successful\n₹1 Registration Confirmed"
- );
+ alert("Demo Payment Successful: ₹1");
 
+ hide("fee");
+ show("panel");
 
- document
- .getElementById("fee")
- .classList
- .add("hidden");
-
-
- document
- .getElementById("studentPanel")
- .classList
- .remove("hidden");
-
-
- document
- .getElementById("welcomeName")
- .innerText=
- student.name;
-
+ document.getElementById("welcome")
+ .innerText=student.name;
 }
 
 
-/* =====================
- START EXAM
-===================== */
+/* START */
 
-function startExam(){
+function startTest(){
 
- document
- .getElementById("studentPanel")
- .classList
- .add("hidden");
+ hide("panel");
+ show("exam");
 
-
- document
- .getElementById("exam")
- .classList
- .remove("hidden");
-
-
- currentQuestion=0;
-
+ current=0;
  answers={};
 
- showQuestions();
-
+ displayQuestions();
 }
 
 
-/* =====================
- SHOW 4 QUESTIONS
-===================== */
+/* SHOW 4 */
 
-function showQuestions(){
+function displayQuestions(){
 
- clearInterval(timerID);
+ clearInterval(timer);
 
  time=30;
 
- document
- .getElementById("timer")
+ document.getElementById("time")
  .innerText=time;
 
-
- document
- .getElementById("questionRange")
+ document.getElementById("range")
  .innerText=
- (
-   currentQuestion+1
- )+
- " - "+
- Math.min(
-   currentQuestion+4,
-   4000
- );
+ (current+1)+" - "+Math.min(current+4,4000);
 
-
- document
- .getElementById("progressBar")
+ document.getElementById("bar")
  .style.width=
- (
-   (
-     currentQuestion+4
-   )
-   /
-   4000
-   *
-   100
- )+
- "%";
+ ((current+4)/4000*100)+"%";
 
-
- let box=
- document
- .getElementById("questionBox");
-
+ let box=document.getElementById("questions");
 
  box.innerHTML="";
 
+ questions.slice(current,current+4)
+ .forEach(q=>{
 
- let four=
- questions.slice(
-   currentQuestion,
-   currentQuestion+4
- );
+  let div=document.createElement("div");
 
+  div.className="question";
 
- four.forEach(
- function(q){
+  div.innerHTML="<b>"+q.id+". "+q.q+"</b>";
 
-   let div=
-   document.createElement("div");
+  q.options.forEach(o=>{
 
-   div.className="question";
+   let btn=document.createElement("button");
 
+   btn.className="option";
 
-   let title=
-   document.createElement("b");
+   btn.innerText=o;
 
-   title.innerText=
-   q.id+
-   ". "+
-   q.question;
+   if(answers[q.id]===o){
+    btn.classList.add("selected");
+   }
 
-   div.appendChild(title);
+   btn.onclick=function(){
+    answers[q.id]=o;
+    displayQuestions();
+   };
 
+   div.appendChild(btn);
 
-   q.options.forEach(
-   function(option){
+  });
 
-     let button=
-     document.createElement("button");
-
-     button.className=
-     "option";
-
-
-     button.innerText=
-     option;
-
-
-     if(
-       answers[q.id]===
-       option
-     ){
-
-       button.classList
-       .add("selected");
-
-     }
-
-
-     button.onclick=
-     function(){
-
-       answers[q.id]=
-       option;
-
-       showQuestions();
-
-     };
-
-
-     div.appendChild(button);
-
-   });
-
-
-   box.appendChild(div);
+  box.appendChild(div);
 
  });
 
 
- timerID=
- setInterval(
- function(){
+ timer=setInterval(function(){
 
-   time--;
+  time--;
 
-   document
-   .getElementById("timer")
-   .innerText=time;
+  document.getElementById("time")
+  .innerText=time;
 
+  if(time<=0){
+   nextPage();
+  }
 
-   if(time<=0){
-
-     nextFour();
-
-   }
-
- },
- 1000
- );
+ },1000);
 
 }
 
 
-/* =====================
- NEXT 4
-===================== */
+/* NEXT 4 */
 
-function nextFour(){
+function nextPage(){
 
- clearInterval(timerID);
+ clearInterval(timer);
 
-
- if(
-   currentQuestion+4
-   >=4000
- ){
-
-   submitExam();
-
-   return;
-
+ if(current+4>=4000){
+  finish();
+  return;
  }
 
+ current+=4;
 
- currentQuestion+=4;
-
- showQuestions();
-
+ displayQuestions();
 }
 
 
-/* =====================
- SUBMIT
-===================== */
+/* RESULT */
 
-function submitExam(){
+function finish(){
 
- clearInterval(timerID);
+ clearInterval(timer);
 
  let score=0;
 
+ questions.forEach(q=>{
 
- questions.forEach(
- function(q){
-
-   if(
-     answers[q.id]===
-     q.answer
-   ){
-
-     score++;
-
-   }
+  if(answers[q.id]===q.answer){
+   score++;
+  }
 
  });
 
+ hide("exam");
+ show("result");
 
- document
- .getElementById("exam")
- .classList
- .add("hidden");
+ document.getElementById("marks")
+ .innerText=score+" / 4000";
 
-
- document
- .getElementById("result")
- .classList
- .remove("hidden");
-
-
- document
- .getElementById("marks")
- .innerText=
- score+
- " / 4000";
-
-
- document
- .getElementById("resultInfo")
+ document.getElementById("info")
  .innerText=
  student.name+
  " • "+
- student.className+
+ student.cls+
  " • "+
- selectedSubject;
+ selected;
+}
+
+
+/* RINGTONE */
+
+function ringtone(){
+
+ let sound=document.getElementById("sound");
+
+ if(sound.paused){
+  sound.play();
+ }else{
+  sound.pause();
+ }
 
 }
 
 
-/* =====================
- RINGTONE
-===================== */
+/* HELPERS */
 
-function toggleMusic(){
+function show(id){
+ document.getElementById(id)
+ .classList.remove("hidden");
+}
 
- let audio=
- document
- .getElementById("ringtone");
-
-
- if(audio.paused){
-
-   audio.play();
-
- }else{
-
-   audio.pause();
-
- }
-
+function hide(id){
+ document.getElementById(id)
+ .classList.add("hidden");
 }
 
 </script>
