@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Little Star Examination Academy</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:linear-gradient(135deg,#eaf7ff,#fff4cf);
+ color:#17345f;
+}
+
+header{
+ background:white;
+ text-align:center;
+ padding:15px;
+ box-shadow:0 3px 12px #0002;
+}
+
+.logo{
+ width:100px;
+ height:100px;
+ object-fit:contain;
+}
+
+.title{
+ font-size:23px;
+ font-weight:bold;
+}
+
+.card{
+ max-width:700px;
+ margin:15px auto;
+ padding:18px;
+ background:white;
+ border-radius:20px;
+ box-shadow:0 5px 20px #0002;
+}
+
+input,select{
+ width:100%;
+ padding:13px;
+ margin:6px 0;
+ border:1px solid #ccd9e8;
+ border-radius:10px;
+ font-size:16px;
+}
+
+button{
+ border:0;
+ border-radius:12px;
+ padding:13px 17px;
+ margin:5px;
+ background:#1769e0;
+ color:white;
+ font-size:16px;
+ font-weight:bold;
+}
+
+.yellow{background:#f2b900;color:#222}
+.green{background:#159447}
+.red{background:#d83b3b}
+
+.hidden{display:none}
+
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+}
+
+.timer{
+ text-align:center;
+ font-size:26px;
+ color:#d22;
+ font-weight:bold;
+}
+
+.progress{
+ height:8px;
+ background:#ddd;
+ border-radius:10px;
+}
+
+.bar{
+ height:100%;
+ width:0%;
+ background:#1769e0;
+ border-radius:10px;
+}
+
+.question{
+ border:2px solid #e3edf7;
+ border-radius:15px;
+ padding:13px;
+ margin:12px 0;
+}
+
+.option{
+ display:block;
+ width:100%;
+ text-align:left;
+ background:#f3f7fb;
+ color:#17345f;
+}
+
+.option.selected{
+ background:#c7e4ff;
+ border:2px solid #1769e0;
+}
+
+.center{text-align:center}
+
+.note{
+ font-size:13px;
+ color:#66758a;
+}
+
+.price{
+ font-size:40px;
+ font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<img
+class="logo"
+src="little_star_logo.png"
+onerror="this.style.display='none'"
+>
+
+<div class="title">
+🌟 Little Star Examination Academy 🌟
+</div>
+
+<div>
+बच्चों की परीक्षा की दुनिया
+</div>
+
+</header>
+
+
+<!-- =====================
+ REGISTRATION
+===================== -->
+
+<div class="card" id="registration">
+
+<h2>👨‍🎓 Student Registration</h2>
+
+<input
+id="studentName"
+placeholder="Student Name"
+>
+
+<input
+id="guardianName"
+placeholder="Parent / Guardian Name"
+>
+
+<input
+id="mobile"
+type="tel"
+placeholder="Mobile Number"
+>
+
+<select id="className">
+
+<option value="">Class चुनें</option>
+
+<option>Nursery</option>
+<option>LKG</option>
+<option>UKG</option>
+
+<option>Class 1</option>
+<option>Class 2</option>
+<option>Class 3</option>
+<option>Class 4</option>
+<option>Class 5</option>
+<option>Class 6</option>
+<option>Class 7</option>
+<option>Class 8</option>
+<option>Class 9</option>
+<option>Class 10</option>
+<option>Class 11</option>
+<option>Class 12</option>
+
+</select>
+
+<label>
+<input
+type="checkbox"
+id="consent"
+>
+Parent/Guardian consent
+</label>
+
+<br>
+
+<button onclick="register()">
+Continue
+</button>
+
+<p class="note">
+बच्चों के लिए payment से पहले parent/guardian consent और privacy notice रखें।
+</p>
+
+</div>
+
+
+<!-- =====================
+ SUBJECT
+===================== -->
+
+<div class="card hidden" id="subjects">
+
+<h2>📚 Subject चुनें</h2>
+
+<div class="grid">
+
+<button onclick="selectSubject('Hindi')">
+हिंदी
+</button>
+
+<button onclick="selectSubject('English')">
+English
+</button>
+
+<button onclick="selectSubject('Maths')">
+Maths
+</button>
+
+<button onclick="selectSubject('GK')">
+General Knowledge
+</button>
+
+<button onclick="selectSubject('Science')">
+Science
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================
+ ₹1 FEE
+===================== -->
+
+<div class="card hidden center" id="fee">
+
+<h2>💰 Test Registration Fee</h2>
+
+<div class="price">
+₹1
+</div>
+
+<p>
+Subject:
+<b id="selectedSubject"></b>
+</p>
+
+<button
+class="green"
+onclick="paymentDemo()"
+>
+₹1 Payment Continue
+</button>
+
+<p class="note">
+यह अभी Demo Payment है। Real payment gateway बाद में secure तरीके से जोड़ा जाएगा।
+</p>
+
+</div>
+
+
+<!-- =====================
+ STUDENT PANEL
+===================== -->
+
+<div class="card hidden" id="studentPanel">
+
+<h2>🎓 Student Panel</h2>
+
+<p>
+Welcome,
+<b id="welcomeName"></b>
+</p>
+
+<p>
+📚 4000 Questions
+</p>
+
+<p>
+📄 20 Sections
+</p>
+
+<p>
+📝 एक बार में 4 Questions
+</p>
+
+<p>
+⏱️ हर screen के लिए 30 Seconds
+</p>
+
+<button onclick="startExam()">
+▶️ Test शुरू करें
+</button>
+
+<button
+class="yellow"
+onclick="toggleMusic()"
+>
+🔔 Ringtone
+</button>
+
+</div>
+
+
+<!-- =====================
+ EXAM
+===================== -->
+
+<div class="card hidden" id="exam">
+
+<div class="timer">
+⏱️
+<span id="timer">
+30
+</span>
+</div>
+
+<div class="progress">
+<div
+class="bar"
+id="progressBar"
+></div>
+</div>
+
+<p>
+Questions:
+<span id="questionRange"></span>
+</p>
+
+<div id="questionBox"></div>
+
+<button onclick="nextFour()">
+अगले 4 →
+</button>
+
+<button
+class="red"
+onclick="submitExam()"
+>
+✅ Submit Test
+</button>
+
+</div>
+
+
+<!-- =====================
+ RESULT
+===================== -->
+
+<div class="card hidden center" id="result">
+
+<h2>
+🏆 Result / Marks
+</h2>
+
+<h1 id="marks"></h1>
+
+<p id="resultInfo"></p>
+
+<button onclick="location.reload()">
+नया Test
+</button>
+
+</div>
+
+
+<audio
+id="ringtone"
+src="ringtone.wav"
+loop
+>
+</audio>
+
+
+<script>
+
+/* =====================
+ STUDENT DATA
+===================== */
+
+let student={};
+
+let selectedSubject="";
+
+
+/* =====================
+ QUESTIONS
+===================== */
+
+let questions=[];
+
+
+/*
+ 4000 questions
+ 20 sections
+ 4 questions per screen
+*/
+
+for(
+ let i=1;
+ i<=4000;
+ i++
+){
+
+ let a=(i*7)%50+1;
+
+ let b=(i*3)%40+1;
+
+ questions.push({
+
+   id:i,
+
+   question:
+   "Question "+i+
+   ": "+a+" + "+b+" = ?",
+
+   options:[
+     String(a+b),
+     String(a+b+1),
+     String(a+b-1),
+     String(a+b+2)
+   ],
+
+   answer:String(a+b)
+
+ });
+
+}
+
+
+/* =====================
+ EXAM VARIABLES
+===================== */
+
+let currentQuestion=0;
+
+let answers={};
+
+let time=30;
+
+let timerID;
+
+
+/* =====================
+ REGISTER
+===================== */
+
+function register(){
+
+ let name=
+ document
+ .getElementById("studentName")
+ .value
+ .trim();
+
+ let guardian=
+ document
+ .getElementById("guardianName")
+ .value
+ .trim();
+
+ let mobile=
+ document
+ .getElementById("mobile")
+ .value
+ .trim();
+
+ let className=
+ document
+ .getElementById("className")
+ .value;
+
+ let consent=
+ document
+ .getElementById("consent")
+ .checked;
+
+
+ if(
+   !name ||
+   !guardian ||
+   !mobile ||
+   !className
+ ){
+
+   alert(
+   "कृपया सभी जानकारी भरें"
+   );
+
+   return;
+
+ }
+
+
+ if(!consent){
+
+   alert(
+   "Parent/Guardian consent जरूरी है"
+   );
+
+   return;
+
+ }
+
+
+ student={
+
+   name:name,
+
+   guardian:guardian,
+
+   mobile:mobile,
+
+   className:className
+
+ };
+
+
+ document
+ .getElementById("registration")
+ .classList
+ .add("hidden");
+
+
+ document
+ .getElementById("subjects")
+ .classList
+ .remove("hidden");
+
+}
+
+
+/* =====================
+ SUBJECT
+===================== */
+
+function selectSubject(subject){
+
+ selectedSubject=subject;
+
+ document
+ .getElementById("selectedSubject")
+ .innerText=subject;
+
+
+ document
+ .getElementById("subjects")
+ .classList
+ .add("hidden");
+
+
+ document
+ .getElementById("fee")
+ .classList
+ .remove("hidden");
+
+}
+
+
+/* =====================
+ DEMO PAYMENT
+===================== */
+
+function paymentDemo(){
+
+ alert(
+ "Demo Payment Successful\n₹1 Registration Confirmed"
+ );
+
+
+ document
+ .getElementById("fee")
+ .classList
+ .add("hidden");
+
+
+ document
+ .getElementById("studentPanel")
+ .classList
+ .remove("hidden");
+
+
+ document
+ .getElementById("welcomeName")
+ .innerText=
+ student.name;
+
+}
+
+
+/* =====================
+ START EXAM
+===================== */
+
+function startExam(){
+
+ document
+ .getElementById("studentPanel")
+ .classList
+ .add("hidden");
+
+
+ document
+ .getElementById("exam")
+ .classList
+ .remove("hidden");
+
+
+ currentQuestion=0;
+
+ answers={};
+
+ showQuestions();
+
+}
+
+
+/* =====================
+ SHOW 4 QUESTIONS
+===================== */
+
+function showQuestions(){
+
+ clearInterval(timerID);
+
+ time=30;
+
+ document
+ .getElementById("timer")
+ .innerText=time;
+
+
+ document
+ .getElementById("questionRange")
+ .innerText=
+ (
+   currentQuestion+1
+ )+
+ " - "+
+ Math.min(
+   currentQuestion+4,
+   4000
+ );
+
+
+ document
+ .getElementById("progressBar")
+ .style.width=
+ (
+   (
+     currentQuestion+4
+   )
+   /
+   4000
+   *
+   100
+ )+
+ "%";
+
+
+ let box=
+ document
+ .getElementById("questionBox");
+
+
+ box.innerHTML="";
+
+
+ let four=
+ questions.slice(
+   currentQuestion,
+   currentQuestion+4
+ );
+
+
+ four.forEach(
+ function(q){
+
+   let div=
+   document.createElement("div");
+
+   div.className="question";
+
+
+   let title=
+   document.createElement("b");
+
+   title.innerText=
+   q.id+
+   ". "+
+   q.question;
+
+   div.appendChild(title);
+
+
+   q.options.forEach(
+   function(option){
+
+     let button=
+     document.createElement("button");
+
+     button.className=
+     "option";
+
+
+     button.innerText=
+     option;
+
+
+     if(
+       answers[q.id]===
+       option
+     ){
+
+       button.classList
+       .add("selected");
+
+     }
+
+
+     button.onclick=
+     function(){
+
+       answers[q.id]=
+       option;
+
+       showQuestions();
+
+     };
+
+
+     div.appendChild(button);
+
+   });
+
+
+   box.appendChild(div);
+
+ });
+
+
+ timerID=
+ setInterval(
+ function(){
+
+   time--;
+
+   document
+   .getElementById("timer")
+   .innerText=time;
+
+
+   if(time<=0){
+
+     nextFour();
+
+   }
+
+ },
+ 1000
+ );
+
+}
+
+
+/* =====================
+ NEXT 4
+===================== */
+
+function nextFour(){
+
+ clearInterval(timerID);
+
+
+ if(
+   currentQuestion+4
+   >=4000
+ ){
+
+   submitExam();
+
+   return;
+
+ }
+
+
+ currentQuestion+=4;
+
+ showQuestions();
+
+}
+
+
+/* =====================
+ SUBMIT
+===================== */
+
+function submitExam(){
+
+ clearInterval(timerID);
+
+ let score=0;
+
+
+ questions.forEach(
+ function(q){
+
+   if(
+     answers[q.id]===
+     q.answer
+   ){
+
+     score++;
+
+   }
+
+ });
+
+
+ document
+ .getElementById("exam")
+ .classList
+ .add("hidden");
+
+
+ document
+ .getElementById("result")
+ .classList
+ .remove("hidden");
+
+
+ document
+ .getElementById("marks")
+ .innerText=
+ score+
+ " / 4000";
+
+
+ document
+ .getElementById("resultInfo")
+ .innerText=
+ student.name+
+ " • "+
+ student.className+
+ " • "+
+ selectedSubject;
+
+}
+
+
+/* =====================
+ RINGTONE
+===================== */
+
+function toggleMusic(){
+
+ let audio=
+ document
+ .getElementById("ringtone");
+
+
+ if(audio.paused){
+
+   audio.play();
+
+ }else{
+
+   audio.pause();
+
+ }
+
+}
+
+</script>
+
+</body>
+</html>
